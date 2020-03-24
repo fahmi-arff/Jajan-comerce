@@ -3,7 +3,7 @@ const app = express();
 const kategoris = require('./routes/kategoris');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/jajanOnlen', { useNewUrlParser: true, useUnifiedTopology: true  })
+mongoose.connect('mongodb://localhost/jajanOnlen', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.log('Could not connect ot MongoDB..'))
 

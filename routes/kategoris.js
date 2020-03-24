@@ -1,53 +1,55 @@
 const Joi = require('@hapi/joi');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
-const kategoris = [
-  { id: 1 , name: 'Elektronik' },
-  { id: 2 , name: 'Pakaian' },
-  { id: 3 , name: 'Alat Tulis' }
-]
+const Kategori = mongoose.model('kategori', new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 50
+  }
+}));
 
-router.get('/', (req, res) => {
+router.get('/', async(req, res) => {
+  const kategoris = await Kategori.find().sort('name');
   res.send(kategoris);
 });
 
-router.get('/:id', (req, res) => {
-  const kategori = kategoris.find(c => c.id === parseInt(req.params.id))
+router.get('/:id', async(req, res) => {
+  const kategori = await Kategori.findById(req.params.id)
 
   if(!kategori) return res.status(404).send(`Kategori dengan id ${req.params.id} tidak ditemukan`)
   res.send(kategori)
 })
 
-router.post('/', (req, res) => {
+router.post('/', async(req, res) => {
   const { error } = validateKategori(req.body)
   if(error) return res.status(400).send(error.details[0].message)
 
-  const kategori = {
-    id: kategoris.length + 1,
-    name: req.body.name
-  };
-  kategoris.push(kategori);
+  let kategori = new Kategori({ name: req.body.name });
+  kategori = await kategori.save();
   res.send(kategori)
 })
 
-router.put('/:id', (req, res) => {
-  const kategori = kategoris.find(c => c.id === parseInt(req.params.id));
-  if(!kategori) res.status(404).send(`Kategori dengan id ${req.params.id} tidak ditemukan`);
-
+router.put('/:id', async(req, res) => {
   const { error } = validateKategori(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  kategori.name = req.body.name;
+  const kategori = await Kategori.findByIdAndUpdate(
+    req.params.id,
+    { name: req.body.name },
+    { new: true }
+  )
+  if(!kategori) return res.status(404).send(`Kategori dengan id ${req.params.id} tidak ditemukan`);
+
   res.send(kategori);
 })
 
-router.delete('/:id', (req, res) => {
-  const kategori = kategoris.find(c => c.id === parseInt(req.params.id));
+router.delete('/:id', async(req, res) => {
+  const kategori = await Kategori.findByIdAndRemove(req.params.id);
   if(!kategori) return res.status(404).send(`Kategori dengan id ${req.params.id} tidak ditemukan`);
-
-  const index = kategoris.indexOf(kategori);
-  kategoris.splice(index, 1);
 
   res.send(kategori);
 })

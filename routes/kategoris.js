@@ -54,10 +54,10 @@ router.delete('/:id', async(req, res) => {
   res.send(kategori);
 })
 
-function validateKategori(course){
+function validateKategori(kategori){
   const schema = Joi.object({ name: Joi.string() .min(3) .required() });
   
-  return schema.validate(course);
+  return schema.validate(kategori);
 }
 
 module.exports = router;

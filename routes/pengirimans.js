@@ -1,22 +1,6 @@
-const Joi = require('@hapi/joi');
-const mongoose = require('mongoose');
+const { Pengiriman, validate } = require('../models/pengiriman');
 const express = require('express');
 const router = express.Router();
-
-const Pengiriman = mongoose.model('pengiriman', new mongoose.Schema({
-  kota: {
-    type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 50
-  },
-  tarif: {
-    type: Number,
-    required: true,
-    min: 3,
-    max: 50000
-  }
-}));
 
 router.get('/', async (req, res) => {
   const pengirimans = await Pengiriman.find().sort('name');
@@ -24,7 +8,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { error } = validatePengiriman(req.body); 
+  const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
   let pengiriman = new Pengiriman({ 
@@ -37,7 +21,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const { error } = validatePengiriman(req.body); 
+  const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
   const pengiriman = await Pengiriman.findByIdAndUpdate(req.params.id,
@@ -66,14 +50,5 @@ router.get('/:id', async (req, res) => {
 
   res.send(pengiriman);
 });
-
-function validatePengiriman(pengiriman) {
-  const schema = Joi.object({ 
-    kota: Joi.string().min(5).max(50).required(),
-    tarif: Joi.number().min(5).max(50000).required() 
-  });
-  
-  return schema.validate(pengiriman);
-}
 
 module.exports = router;

@@ -1,16 +1,6 @@
-const Joi = require('@hapi/joi');
+const { Kategori, validate } = require('../models/kategori')
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-
-const Kategori = mongoose.model('kategori', new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50
-  }
-}));
 
 router.get('/', async(req, res) => {
   const kategoris = await Kategori.find().sort('name');
@@ -25,7 +15,7 @@ router.get('/:id', async(req, res) => {
 })
 
 router.post('/', async(req, res) => {
-  const { error } = validateKategori(req.body)
+  const { error } = validate(req.body)
   if(error) return res.status(400).send(error.details[0].message)
 
   let kategori = new Kategori({ name: req.body.name });
@@ -34,7 +24,7 @@ router.post('/', async(req, res) => {
 })
 
 router.put('/:id', async(req, res) => {
-  const { error } = validateKategori(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const kategori = await Kategori.findByIdAndUpdate(
@@ -53,11 +43,5 @@ router.delete('/:id', async(req, res) => {
 
   res.send(kategori);
 })
-
-function validateKategori(kategori){
-  const schema = Joi.object({ name: Joi.string() .min(3) .required() });
-  
-  return schema.validate(kategori);
-}
 
 module.exports = router;

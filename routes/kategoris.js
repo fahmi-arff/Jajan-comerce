@@ -18,8 +18,8 @@ router.post('/', async(req, res) => {
   const { error } = validate(req.body)
   if(error) return res.status(400).send(error.details[0].message)
 
-  let kategori = new Kategori({ name: req.body.name });
-  kategori = await kategori.save();
+  const kategori = new Kategori({ name: req.body.name });
+  await kategori.save();
   res.send(kategori)
 })
 

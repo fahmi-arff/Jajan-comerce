@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
   const pengiriman = await Pengiriman.findById(req.body.pengirimanId);
   if (!pengiriman) return res.status(400).send('pengiriman ID salah.');
 
-  let barang = new Barang({ 
+  const barang = new Barang({ 
     nama: req.body.nama,
     kategori: {
       _id: kategori._id,
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
       tarif: pengiriman.tarif
     },
   });
-  barang = await barang.save();
+  await barang.save();
 
   res.send(barang);
 });

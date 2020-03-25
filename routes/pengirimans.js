@@ -11,11 +11,11 @@ router.post('/', async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  let pengiriman = new Pengiriman({ 
+  const pengiriman = new Pengiriman({ 
     kota: req.body.kota,
     tarif: req.body.tarif
   });
-  pengiriman = await pengiriman.save();
+  await pengiriman.save();
 
   res.send(pengiriman);
 });

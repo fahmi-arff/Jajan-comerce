@@ -41,11 +41,11 @@ const Barang = mongoose.model('barang', new mongoose.Schema({
 function validateBarang(barang) {
   const schema = Joi.object({ 
     nama: Joi.string().min(5).max(50).required(),
-    kategoriId: Joi.string().required(),
+    kategoriId: Joi.objectId().required(),
     stok: Joi.number().min(0).required(),
     harga: Joi.number().min(1).required(),
     terjual: Joi.number().min(0).required(),
-    pengirimanId: Joi.string().required()
+    pengirimanId: Joi.objectId().required()
   });
 
   return schema.validate(barang);

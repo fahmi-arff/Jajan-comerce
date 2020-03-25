@@ -1,9 +1,11 @@
+require('dotenv').config()
 const Joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {Akun} = require('../models/akun');
 const express = require('express');
 const router = express.Router();
+const jwtPrivateKey = process.env.JWT_PRIVATE_KEY;
 
 router.post('/', async(req, res) => {
   const { error } = validate(req.body);
@@ -15,7 +17,7 @@ router.post('/', async(req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, akun.password);
   if (!validPassword) return res.status(400).send('Invalid password.');
 
-  const token = jwt.sign({ _id: akun._id }, 'jwtPrivateKey' )
+  const token = jwt.sign({ _id: akun._id }, jwtPrivateKey )
   res.send(token);
 });
 

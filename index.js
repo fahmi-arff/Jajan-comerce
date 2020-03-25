@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Joi = require('@hapi/joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const express = require('express');
@@ -8,6 +9,12 @@ const barangs = require('./routes/barangs');
 const akuns = require('./routes/akuns');
 const login = require('./routes/login');
 const mongoose = require('mongoose');
+const jwtPrivateKey = process.env.JWT_PRIVATE_KEY;
+
+if(!jwtPrivateKey){
+  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+  process.exit(1);
+}
 
 mongoose.connect('mongodb://localhost/jajanOnlen', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(() => console.log('Connected to MongoDB...'))

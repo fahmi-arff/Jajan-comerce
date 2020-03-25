@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {Akun} = require('../models/akun');
 const express = require('express');
@@ -14,7 +15,8 @@ router.post('/', async(req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, akun.password);
   if (!validPassword) return res.status(400).send('Invalid password.');
 
-  res.send(true);
+  const token = jwt.sign({ _id: akun._id }, 'jwtPrivateKey' )
+  res.send(token);
 });
 
 function validate(req){

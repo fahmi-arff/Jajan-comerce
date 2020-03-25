@@ -1,3 +1,4 @@
+require('express-async-errors');
 const Joi = require('@hapi/joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const error = require('./middleware/error');
@@ -10,6 +11,16 @@ const akuns = require('./routes/akuns');
 const login = require('./routes/login');
 const mongoose = require('mongoose');
 const { jwtPrivateKey } = require('./config');
+
+process.on('uncaughtException', ex => {
+  console.log('WE GOT AN UNCAUGHT EXCEPTION');
+  console.error(ex.message, ex);
+})
+
+process.on('unhandledRejection', ex => {
+  console.log('WE GOT AN UNHANDLED REJECTION');
+  console.error(ex.message, ex);
+})
 
 if(!jwtPrivateKey){
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');

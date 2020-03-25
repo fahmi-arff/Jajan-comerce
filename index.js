@@ -1,5 +1,6 @@
 const Joi = require('@hapi/joi');
 Joi.objectId = require('joi-objectid')(Joi);
+const error = require('./middleware/error');
 const express = require('express');
 const app = express();
 const kategoris = require('./routes/kategoris');
@@ -25,6 +26,8 @@ app.use('/api/pengirimans', pengirimans);
 app.use('/api/barangs', barangs);
 app.use('/api/akuns', akuns);
 app.use('/api/login',login);
+
+app.use(error)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port} ...`));

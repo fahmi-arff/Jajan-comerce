@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 
-const Pengiriman = mongoose.model('pengiriman', new mongoose.Schema({
+const pengirimanSchema = new mongoose.Schema({
   kota: {
     type: String,
     required: true,
@@ -14,7 +14,9 @@ const Pengiriman = mongoose.model('pengiriman', new mongoose.Schema({
     min: 3,
     max: 50000
   }
-}));
+})
+
+const Pengiriman = mongoose.model('pengiriman', pengirimanSchema);
 
 function validatePengiriman(pengiriman) {
   const schema = Joi.object({ 
@@ -25,5 +27,6 @@ function validatePengiriman(pengiriman) {
   return schema.validate(pengiriman);
 }
 
+exports.pengirimanSchema = pengirimanSchema;
 exports.Pengiriman = Pengiriman;
 exports.validate = validatePengiriman;

@@ -1,6 +1,5 @@
-require('dotenv').config()
-const jwt = require('jsonwebtoken')
-const jwtPrivateKey = process.env.JWT_PRIVATE_KEY
+const jwt = require('jsonwebtoken');
+const { jwtPrivateKey } = require('../config');
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 

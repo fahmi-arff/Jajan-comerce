@@ -1,6 +1,7 @@
 const {Akun, validate} = require('../models/akun');
 const express = require('express');
 const router = express.Router();
+const _ = require('lodash');
 
 router.post('/', async(req, res) => {
   const { error } = validate(req.body);
@@ -12,16 +13,11 @@ router.post('/', async(req, res) => {
   let username = await Akun.findOne({ username: req.body.username});
   if (username) return res.status(400).send('Username telah digunakan, coba yang lain.');
 
-  const akun = new Akun({
-    nama: req.body.nama,
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-  });
+  const akun = new Akun(_.pick(req.body, ['nama', 'username', 'email', 'password']))
 
   await akun.save();
 
-  res.send(akun);
+  res.send(_.pick(akun, ['_id','nama', 'username', 'email']));
 });
 
 module.exports = router;

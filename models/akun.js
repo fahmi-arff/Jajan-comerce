@@ -1,7 +1,10 @@
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const jwtPrivateKey = process.env.JWT_PRIVATE_KEY
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 
-const Akun = mongoose.model('akun', new mongoose.Schema({
+const akunSchema = new mongoose.Schema({
   nama: {
     type: String,
     required: true,
@@ -43,7 +46,14 @@ const Akun = mongoose.model('akun', new mongoose.Schema({
     minlength: 5,
     maxlength: 50
   }
-}))
+})
+
+akunSchema.methods.generateAuthToken = function(){
+  const token = jwt.sign({ _id: this._id}, jwtPrivateKey)
+  return token
+}
+
+const Akun = mongoose.model('akun', akunSchema)
 
 function validateAkun(akun) {
   const schema = Joi.object({ 

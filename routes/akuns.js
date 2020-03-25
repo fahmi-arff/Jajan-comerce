@@ -1,11 +1,8 @@
-require('dotenv').config()
 const {Akun, validate} = require('../models/akun');
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const jsonwebtoken = process.env.JWT_PRIVATE_KEY
 
 router.post('/', async(req, res) => {
   const { error } = validate(req.body);
@@ -22,7 +19,7 @@ router.post('/', async(req, res) => {
   akun.password = await bcrypt.hash(akun.password, salt)
   await akun.save();
 
-  const token = jwt.sign({ _id: akun._id }, jsonwebtoken);
+  const token = akun.generateAuthToken();
   res.header('x-auth-token', token).send(_.pick(akun, ["_id", 'nama', 'email']))
 });
 

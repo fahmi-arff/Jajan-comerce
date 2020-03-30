@@ -1,5 +1,5 @@
 import React from 'react';
-import actions from '../actions';
+import { pilihBarang } from '../actions';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 const PageOne = () => {

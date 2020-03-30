@@ -1,5 +1,6 @@
 import React from 'react';
 import ListBarang from './ListBarang';
+import DetailBarang from './DetailBarang';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 const PageOne = () => {
@@ -8,6 +9,9 @@ const PageOne = () => {
       <div className="ui row">
         <div className="column eight wide">
           <ListBarang />
+        </div>
+        <div className="column eight wide">
+          <DetailBarang />
         </div>
       </div>
       <Link to="/pagetwo">Navigate to page two</Link>

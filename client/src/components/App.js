@@ -1,4 +1,5 @@
 import React from 'react';
+import actions from '../actions';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 const PageOne = () => {
@@ -32,4 +33,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App; 

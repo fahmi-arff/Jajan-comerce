@@ -1,5 +1,4 @@
 import React from 'react';
-import { pilihBarang } from '../actions';
 import ListBarang from './ListBarang';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 

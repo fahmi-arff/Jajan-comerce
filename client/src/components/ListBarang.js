@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { pilihBarang } from '../actions';
 
 class ListBarang extends React.Component {
   renderList() {
@@ -7,7 +8,10 @@ class ListBarang extends React.Component {
       return (
         <div className="item" key={brg.nama}>
           <div className="right floated content">
-            <button className="ui button primary">
+            <button 
+              className="ui button primary"
+              onClick={() => this.props.pilihBarang(brg)}
+            >
               Pilih
             </button>
           </div>
@@ -18,7 +22,7 @@ class ListBarang extends React.Component {
   }
 
   render() {
-  return <div className="ui divided list">{this.renderList()}</div>
+    return <div className="ui divided list">{this.renderList()}</div>
   }
 }
 
@@ -26,4 +30,6 @@ const mapStateToProps = state => {
   return { barang: state.barang };
 }
 
-export default connect(mapStateToProps)(ListBarang);
+export default connect(mapStateToProps, {
+  pilihBarang
+})(ListBarang);

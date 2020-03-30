@@ -2,9 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class ListBarang extends React.Component {
+  renderList() {
+    return this.props.barang.map(brg => {
+      return (
+        <div className="item" key={brg.nama}>
+          <div className="right floated content">
+            <button className="ui button primary">
+              Pilih
+            </button>
+          </div>
+          <div className="content">{brg.nama}</div>
+        </div>
+      )
+    })
+  }
+
   render() {
-    console.log(this.props);
-    return <div>ListBarang</div>
+  return <div className="ui divided list">{this.renderList()}</div>
   }
 }
 

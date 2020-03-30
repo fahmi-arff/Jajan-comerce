@@ -5,8 +5,12 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 const PageOne = () => {
   return (
-    <div>
-      <ListBarang />
+    <div className="ui container grid">
+      <div className="ui row">
+        <div className="column eight wide">
+          <ListBarang />
+        </div>
+      </div>
       <Link to="/pagetwo">Navigate to page two</Link>
     </div>
   )

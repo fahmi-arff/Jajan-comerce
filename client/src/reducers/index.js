@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const barang2Reducer = () => {
   return [
     { nama: 'Vaseline Men Face', harga: '22000'},
@@ -14,3 +16,8 @@ const barangTerpilihReducer = (barangTerpilih=null, action) => {
 
   return barangTerpilih
 }
+
+export default combineReducers({
+  barang: barang2Reducer,
+  barangTerpilih: barangTerpilihReducer
+});

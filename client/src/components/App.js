@@ -1,6 +1,7 @@
 import React from 'react';
 import ListBarang from './ListBarang';
 import DetailBarang from './DetailBarang';
+// import Coba from './Coba';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 const PageOne = () => {

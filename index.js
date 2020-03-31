@@ -11,6 +11,7 @@ const akuns = require('./routes/akuns');
 const login = require('./routes/login');
 const mongoose = require('mongoose');
 const { jwtPrivateKey } = require('./config');
+const cors = require('./startup/cors');
 
 process.on('uncaughtException', ex => {
   console.log('WE GOT AN UNCAUGHT EXCEPTION');
@@ -31,6 +32,7 @@ mongoose.connect('mongodb://localhost/jajanOnlen', { useNewUrlParser: true, useU
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.log('Could not connect ot MongoDB..'))
 
+app.use(cors);
 app.use(express.json());
 app.use('/api/kategoris', kategoris);
 app.use('/api/pengirimans', pengirimans);

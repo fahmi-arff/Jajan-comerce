@@ -9,16 +9,22 @@ const DetailBarang = ({ barang }) => {
     <div>
       <h3>Detail barang: </h3>
       <p>
-        Nama Barang: {barang.nama}
+        Jenis Barang: {barang.data.kategori.name}
         <br />
-        Harga : {barang.harga}
+        Nama Barang: {barang.data.nama}
+        <br />
+        Harga : {barang.data.harga}
+        <br />
+        Stok  : {barang.data.stok}
+        <br />
+        Asal Kota : {barang.data.pengiriman.kota}
       </p>
     </div>
   )
 }
 
 const mapStateToProps = state => {
-  return {barang : state.barangTerpilih}
+  return {barang : state.barangId}
 }
 
 export default connect(mapStateToProps)(DetailBarang);

@@ -1,16 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { pilihBarang } from '../actions';
+import { barangGet, barangId } from '../actions';
 
 class ListBarang extends React.Component {
-  renderList() {
-    return this.props.barang.map(brg => {
+  componentDidMount(){
+    this.props.barangGet();
+  }
+  
+  renderList(){
+    if (this.props.barang.length === 0){
       return (
-        <div className="item" key={brg.nama}>
+        <div>
+          No Data
+        </div>
+      )
+    }
+    return this.props.barang.data.map(brg => {
+      return (
+        <div className="item" key={brg._id}>
           <div className="right floated content">
             <button 
               className="ui button primary"
-              onClick={() => this.props.pilihBarang(brg)}
+              onClick={() => this.props.barangId(brg._id)}
             >
               Pilih
             </button>
@@ -21,15 +32,16 @@ class ListBarang extends React.Component {
     })
   }
 
-  render() {
-    return <div className="ui divided list">{this.renderList()}</div>
+  render(){
+    return <div className="ui relaxed divided list">{this.renderList()}</div>
   }
 }
 
 const mapStateToProps = state => {
-  return { barang: state.barang };
+  return { barang: state.barangGet };
 }
 
-export default connect(mapStateToProps, {
-  pilihBarang
-})(ListBarang);
+export default connect(
+  mapStateToProps, 
+  { barangGet, barangId }
+)(ListBarang)

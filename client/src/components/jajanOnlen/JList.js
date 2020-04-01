@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link} from 'react-router-dom';
 import { barangGet, barangId } from '../../actions';
 
 class JList extends React.Component {
@@ -19,12 +20,14 @@ class JList extends React.Component {
       return (
         <div className="item" key={brg._id}>
           <div className="right floated content">
-            <button 
-              className="ui button primary"
-              onClick={() => this.props.barangId(brg._id)}
-            >
-              Pilih
-            </button>
+            <Link to= "/jajan/Detail" >
+              <button 
+                className="ui button primary"
+                onClick={() => this.props.barangId(brg._id)}
+              >
+                Pilih
+              </button>
+            </Link>
           </div>
           <div className="content">{brg.nama}</div>
         </div>
@@ -38,18 +41,12 @@ class JList extends React.Component {
 
   render(){
     return (
-      // <div>Bisa dong</div>
       <div className="ui container grid">
-        TESAJA
         <div className="ui row">
           <div className="column eight wide">
             {this.renderList()}
           </div>
-          {/* <div className="column eight wide">
-            <DetailBarang />
-          </div> */}
         </div>
-        {/* <Link to="/jajan/Detail">Navigate to page two</Link> */}
       </div>
     )
   }

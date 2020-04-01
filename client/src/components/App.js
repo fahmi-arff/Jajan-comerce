@@ -1,41 +1,17 @@
 import React from 'react';
-import ListBarang from './ListBarang';
-import DetailBarang from './DetailBarang';
-// import Coba from './Coba';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-
-const PageOne = () => {
-  return (
-    <div className="ui container grid">
-      <div className="ui row">
-        <div className="column eight wide">
-          <ListBarang />
-        </div>
-        <div className="column eight wide">
-          <DetailBarang />
-        </div>
-      </div>
-      <Link to="/pagetwo">Navigate to page two</Link>
-    </div>
-  )
-}
-
-const PageTwo = () => {
-  return (
-    <div>
-      Page Two
-      <Link to="/">Navigate to page one</Link>
-    </div>
-  )
-}
+import { BrowserRouter, Route} from 'react-router-dom';
+import JList from './jajanOnlen/JList';
+import JCheckout from './jajanOnlen/JCheckout';
+import JDetail from './jajanOnlen/JDetail';
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <div>
-          <Route path="/" exact component={PageOne} />
-          <Route path="/pagetwo" exact component={PageTwo} />
+          <Route path="/" exact component={JList} />
+          <Route path="/jajan/detail" exact component={JDetail} />
+          <Route path="/jajan/checkout" exact component={JCheckout} />
         </div>
       </BrowserRouter>
     </div>

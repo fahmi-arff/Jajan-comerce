@@ -10,11 +10,20 @@ class CreateProfile extends React.Component {
       </div>
     )
   }
+
+  onSubmit(formValues) {
+    console.log(formValues)
+  }
+
   render() {
-    return (
-      <form className="ui form">
+    return ( 
+      <form
+        onSubmit={this.props.handleSubmit(this.onSubmit)} 
+        className="ui form"
+      >
         <Field name="Nama Depan" component={this.renderInput} label="Nama Depan" />
         <Field name="Nama Belakang" component={this.renderInput} label="Nama Belakang" />
+        <button className="ui button primary">Submit</button>
       </form>
     )
   }

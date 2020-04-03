@@ -12,7 +12,7 @@ const App = () => {
         <div>
           <Header />
           <Route path="/" exact component={JList} />
-          <Route path="/jajan/detail" exact component={JDetail} />
+          <Route path="/jajan/detail/:id" exact component={JDetail} />
           <Route path="/jajan/checkout" exact component={JCheckout} />
         </div>
       </BrowserRouter>

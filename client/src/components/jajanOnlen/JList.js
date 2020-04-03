@@ -10,17 +10,13 @@ class JList extends React.Component {
   
   renderBarang(){
     if (this.props.barang.length === 0){
-      return (
-        <div>
-          No Data
-        </div>
-      )
+      return <div>No Data</div>
     }
     return this.props.barang.data.map(brg => {
       return (
         <div className="item" key={brg._id}>
           <div className="right floated content">
-            <Link to= "/jajan/Detail" >
+            <Link to= {`/jajan/Detail/${brg._id}`} >
               <button 
                 className="ui button primary"
                 onClick={() => this.props.barangId(brg._id)}

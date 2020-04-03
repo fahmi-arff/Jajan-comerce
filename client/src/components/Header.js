@@ -8,6 +8,12 @@ const Header = () => {
       <div className="right menu">
         <Link to="/" className="item">Branda</Link>
       </div>
+      <button class="ui red button">
+        Daftar
+      </button>
+      <button class="ui primary button">
+        Login
+      </button>
     </div>
   )
 }

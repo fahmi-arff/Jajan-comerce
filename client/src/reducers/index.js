@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer } from 'redux-form';
 
 const barangGetReducer = (state= [], action) => {
   switch (action.type) {
@@ -19,5 +20,6 @@ const barangIdReducer = (state=null, action) => {
 
 export default combineReducers({
   barangGet: barangGetReducer,
-  barangId : barangIdReducer
+  barangId : barangIdReducer,
+  form: reducer
 });

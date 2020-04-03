@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux';
+import { daftarPost } from '../../actions';
 
 class CreateProfile extends React.Component {
   renderError({ error, touched }){
@@ -23,8 +25,9 @@ class CreateProfile extends React.Component {
     )
   }
 
-  onSubmit(formValues) {
+  onSubmit = (formValues) => {
     console.log(formValues)
+    this.props.daftarPost(formValues)
   }
 
   render() {
@@ -33,8 +36,10 @@ class CreateProfile extends React.Component {
         onSubmit={this.props.handleSubmit(this.onSubmit)} 
         className="ui form error"
       >
-        <Field name="namaDepan" component={this.renderInput} label="Nama Depan" />
-        <Field name="namaBelakang" component={this.renderInput} label="Nama Belakang" />
+        <Field name="nama" component={this.renderInput} label="Nama" />
+        <Field name="username" component={this.renderInput} label="Usename" />
+        <Field name="password" component={this.renderInput} label="Password" />
+        <Field name="email" component={this.renderInput} label="Email" />
         <button className="ui button primary">Submit</button>
       </form>
     )
@@ -44,18 +49,28 @@ class CreateProfile extends React.Component {
 const validate = formValues => {
   const errors = {};
 
-  if (!formValues.namaDepan) {
-    errors.namaDepan = 'Wajib mengisi nama Depan';
+  if (!formValues.nama) {
+    errors.nama = 'Nama dibutuhkan';
   }
   
-  if (!formValues.namaBelakang) {
-    errors.namaBelakang = 'Wajib mengisi nama Belakang';
+  if (!formValues.username) {
+    errors.username = 'Usename dibutuhkan';
+  }
+
+  if (!formValues.password) {
+    errors.password = 'Password dibutuhkan';
+  }
+
+  if (!formValues.email) {
+    errors.email = 'Email dibutuhkan';
   }
   
   return errors;
 }
 
-export default reduxForm ({
+const formWrapped = reduxForm ({
   form: 'createProfile',
   validate
 })(CreateProfile); 
+
+export default connect(null, { daftarPost })(formWrapped)

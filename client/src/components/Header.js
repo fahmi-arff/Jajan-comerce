@@ -7,13 +7,13 @@ const Header = () => {
       <Link to="/" className="item">Jajan Onlen</Link>
       <div className="right menu">
         <Link to="/" className="item">Branda</Link>
-      </div>
-      <button className="ui red button">
+      </div >
+      <Link to={`/profile/create`} className="ui button red">
         Daftar
-      </button>
-      <button className="ui primary button">
+      </Link>
+      <Link to={`/profile/login`} className="ui button primary">
         Login
-      </button>
+      </Link>
     </div>
   )
 }

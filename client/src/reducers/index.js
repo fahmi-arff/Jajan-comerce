@@ -26,9 +26,18 @@ const daftarPostReducer = (state=null, action) => {
   return state
 }
 
+const daftarLoginReducer = (state=null, action) => {
+  if (action.type === 'AKUN_LOGIN'){
+    return  action.payload;
+  }
+
+  return state
+}
+
 export default combineReducers({
   barangGet: barangGetReducer,
   barangId : barangIdReducer,
   daftarPost : daftarPostReducer,
+  daftarLogin : daftarLoginReducer,
   form: reducer
 });

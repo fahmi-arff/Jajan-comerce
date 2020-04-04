@@ -37,3 +37,26 @@ export const daftarPost = formValues => async dispatch => {
 
   dispatch({type: 'AKUN_POST', payload: validate })
 } 
+
+export const loginPost = formValues => async dispatch => {
+  let data = JSON.stringify({
+    email: formValues.email,
+    password: formValues.password,
+  })
+  let validate;
+  await apis.post('/login', data, {
+    headers: {
+    'Content-Type': 'application/json',
+    }
+  })
+
+  .then(response => { 
+    validate = null;    
+  })
+  .catch(error => {
+    validate = error.response.data
+  });
+  if(typeof validate !== "string") history.push('/');
+
+  dispatch({type: 'AKUN_LOGIN', payload: validate })
+} 

@@ -19,13 +19,18 @@ export const daftarPost = formValues => async dispatch => {
     password: formValues.password,
     email: formValues.email,
   })
-  console.log(formValues)
-  console.log(data)
+  let validate;
   await apis.post('/akuns', data, {
     headers: {
     'Content-Type': 'application/json',
     }
+  })
+  .then(response => { 
+    validate = null;
+  })
+  .catch(error => {
+      validate = error.response.data
   });
 
-  // dispatch({type: 'AKUN_POST', payload: response })
+  dispatch({type: 'AKUN_POST', payload: validate })
 } 

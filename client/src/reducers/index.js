@@ -18,8 +18,17 @@ const barangIdReducer = (state=null, action) => {
   return state
 }
 
+const daftarPostReducer = (state=null, action) => {
+  if (action.type === 'AKUN_POST'){
+    return  action.payload;
+  }
+
+  return state
+}
+
 export default combineReducers({
   barangGet: barangGetReducer,
   barangId : barangIdReducer,
+  daftarPost : daftarPostReducer,
   form: reducer
 });

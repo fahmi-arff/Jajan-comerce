@@ -26,7 +26,6 @@ class CreateProfile extends React.Component {
   }
 
   onSubmit = (formValues) => {
-    console.log(formValues)
     this.props.daftarPost(formValues)
   }
 
@@ -40,6 +39,9 @@ class CreateProfile extends React.Component {
         <Field name="username" component={this.renderInput} label="Usename" />
         <Field name="password" component={this.renderInput} label="Password" />
         <Field name="email" component={this.renderInput} label="Email" />
+        <div className="ui error message">
+          {this.props.errorPost}
+        </div>
         <button className="ui button primary">Submit</button>
       </form>
     )
@@ -67,10 +69,13 @@ const validate = formValues => {
   
   return errors;
 }
+const mapStateToProps = state => {
+  return {errorPost : state.daftarPost}
+}
 
 const formWrapped = reduxForm ({
   form: 'createProfile',
   validate
 })(CreateProfile); 
 
-export default connect(null, { daftarPost })(formWrapped)
+export default connect(mapStateToProps, { daftarPost })(formWrapped)

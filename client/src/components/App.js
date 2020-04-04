@@ -5,6 +5,7 @@ import JCheckout from './jajanOnlen/JCheckout';
 import JDetail from './jajanOnlen/JDetail';
 import Header from './Header';
 import CreateProfile from './profileOnlen/CreateProfile';
+import LoginProfile from './profileOnlen/LoginProfile';
 import history from '../history';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/jajan/detail/:id" exact component={JDetail} />
             <Route path="/jajan/checkout" exact component={JCheckout} />
             <Route path="/profile/create" exact component={CreateProfile} />
+            <Route path="/profile/login" exact component={LoginProfile} />
           </Switch>
         </div>
       </Router>

@@ -1,4 +1,5 @@
 import apis from '../api';
+import history from '../history';
 
 export const barangGet = () => async dispatch => {
   const response = await apis.get('/barangs');
@@ -25,12 +26,14 @@ export const daftarPost = formValues => async dispatch => {
     'Content-Type': 'application/json',
     }
   })
+
   .then(response => { 
-    validate = null;
+    validate = null;    
   })
   .catch(error => {
-      validate = error.response.data
+    validate = error.response.data
   });
+  if(typeof validate !== "string") history.push('/');
 
   dispatch({type: 'AKUN_POST', payload: validate })
 } 

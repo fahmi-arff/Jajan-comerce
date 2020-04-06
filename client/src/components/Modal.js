@@ -4,6 +4,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { loginPost } from '../actions';
+import { Link } from 'react-router-dom';
 
 class Modal extends React.Component {
   renderError({ error, touched }){
@@ -48,15 +49,17 @@ class Modal extends React.Component {
                 {this.props.errorLogin}
               </div>
               <button className="ui button primary">Submit</button>
+                <Link to={`/profile/login`} className="ui left pointing label">
+                  Lupa Password
+                </Link>
             </form>
           </div>
           <div className="actions">
-            <button className="ui primary button">Login</button>
             <button 
               onClick={() => history.push('/')}
-              className="ui button"
+              className="ui red button"
             >
-              Cancel
+              Back
             </button>
           </div>
         </div>

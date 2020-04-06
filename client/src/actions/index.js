@@ -51,12 +51,13 @@ export const loginPost = formValues => async dispatch => {
   })
 
   .then(response => { 
-    validate = null;    
+    const key = response.data
+    validate = key;    
   })
   .catch(error => {
     validate = error.response.data
   });
-  if(typeof validate !== "string") history.push('/');
+  if(typeof validate === "string" && validate.length >= 149) history.push('/');
 
   dispatch({type: 'AKUN_LOGIN', payload: validate })
 } 

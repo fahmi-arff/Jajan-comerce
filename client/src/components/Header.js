@@ -18,7 +18,7 @@ class Header extends React.Component {
     } else {
       return(
         <div>
-          <Link to={`/profile/create`} className="ui button primary">
+          <Link to={`/profile/me`} className="ui button primary">
             Profile
           </Link>
           <Link to={`/profile/login`} className="ui red button">

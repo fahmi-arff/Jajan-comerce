@@ -61,3 +61,14 @@ export const loginPost = formValues => async dispatch => {
 
   dispatch({type: 'AKUN_LOGIN', payload: validate })
 } 
+
+export const akunGet = key => async dispatch => {
+  const response = await apis.get('/akuns/me',{
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-token': key
+    }
+  });
+
+  dispatch({type: 'AKUN_GET', payload: response })
+}

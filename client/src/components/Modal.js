@@ -33,7 +33,6 @@ class Modal extends React.Component {
   }
 
   render(){
-    console.log(this.props)
     return ReactDOM.createPortal(
       <div className="ui dimmer modals visible active">
         <div className="ui standard modal visible active">
@@ -84,7 +83,6 @@ const validate = formValues => {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {errorLogin : state.daftarLogin}
 }
 

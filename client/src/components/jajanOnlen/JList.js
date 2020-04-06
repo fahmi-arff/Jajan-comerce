@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link} from 'react-router-dom';
-import { barangGet, barangId } from '../../actions';
+import { barangGet, barangId, loginPost, akunGet } from '../../actions';
 
 class JList extends React.Component {
   componentDidMount(){
     this.props.barangGet();
+  }
+
+  componentDidUpdate(){
+    if(this.props.keyId) this.props.akunGet(this.props.keyId)
   }
   
   renderBarang(){
@@ -36,6 +40,7 @@ class JList extends React.Component {
   }
 
   render(){
+    console.log(this.props.keyId)
     return (
       <div className="ui container grid">
         <div className="ui row">
@@ -49,10 +54,14 @@ class JList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { barang: state.barangGet };
+  console.log('state=>', state)
+  return { 
+    barang: state.barangGet,
+    keyId: state.daftarLogin
+   };
 }
 
 export default connect(
   mapStateToProps, 
-  { barangGet, barangId }
+  { barangGet, barangId, loginPost, akunGet }
 )(JList)

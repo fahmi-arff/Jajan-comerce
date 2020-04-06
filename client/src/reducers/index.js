@@ -34,10 +34,19 @@ const daftarLoginReducer = (state=null, action) => {
   return state
 }
 
+const currentUserReducer = (state=null, action) => {
+  if (action.type === 'AKUN_GET'){
+    return  action.payload;
+  }
+
+  return state
+}
+
 export default combineReducers({
   barangGet: barangGetReducer,
   barangId : barangIdReducer,
   daftarPost : daftarPostReducer,
   daftarLogin : daftarLoginReducer,
+  currentUser : currentUserReducer,
   form: reducer
 });

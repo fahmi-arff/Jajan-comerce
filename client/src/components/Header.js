@@ -1,21 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Header = () => {
-  return (
-    <div className="ui secondary pointing menu">
-      <Link to="/" className="item">Jajan Onlen</Link>
-      <div className="right menu">
-        <Link to="/" className="item">Branda</Link>
-      </div >
-      <Link to={`/profile/create`} className="ui button red">
-        Daftar
-      </Link>
-      <Link to={`/profile/login`} className="ui button primary">
-        Login
-      </Link>
-    </div>
-  )
+class Header extends React.Component {
+  renderbutton(){
+    if(this.props.userLogin === null){
+      return (
+        <div>
+          <Link to={`/profile/create`} className="ui button red">
+            Daftar
+          </Link>
+          <Link to={`/profile/login`} className="ui button primary">
+            Login
+          </Link>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <Link to={`/profile/create`} className="ui button primary">
+            Profile
+          </Link>
+          <Link to={`/profile/login`} className="ui red button">
+            Logout
+          </Link>
+        </div>
+      )
+    }
+  }
+  render(){
+    console.log(this.props)
+    return (
+      <div className="ui secondary pointing menu">
+        <Link to="/" className="item">Jajan Onlen</Link>
+        <div className="right menu">
+          <Link to="/" className="item">Branda</Link>
+        </div >
+          {this.renderbutton()}
+      </div>
+    )
+  }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  console.log('===',state)
+  return { userLogin : state.currentUser}
+}
+
+export default connect(mapStateToProps)(Header)

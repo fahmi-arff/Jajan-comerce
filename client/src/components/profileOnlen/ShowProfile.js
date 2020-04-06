@@ -11,11 +11,11 @@ class ShowProfile extends React.Component {
       <div>
         <h3>Detail myAkun: </h3>
         <p>
-          Nama : {myAkun.nama}
+          Nama : {myAkun.data.nama}
           <br />
-          Username : {myAkun.username}
+          Username : {myAkun.data.username}
           <br />
-          Email : {myAkun.email}
+          Email : {myAkun.data.email}
         </p>
       </div>
     )
@@ -34,7 +34,7 @@ class ShowProfile extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {myAkun : state.currentUser.data}
+  return {myAkun : state.currentUser}
 }
 
 export default connect(mapStateToProps)(ShowProfile);

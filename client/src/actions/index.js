@@ -39,36 +39,45 @@ export const daftarPost = formValues => async dispatch => {
 } 
 
 export const loginPost = formValues => async dispatch => {
-  let data = JSON.stringify({
-    email: formValues.email,
-    password: formValues.password,
-  })
   let validate;
-  await apis.post('/login', data, {
-    headers: {
-    'Content-Type': 'application/json',
-    }
-  })
-
-  .then(response => { 
-    const key = response.data
-    validate = key;    
-  })
-  .catch(error => {
-    validate = error.response.data
-  });
+  if(formValues === null){
+    validate = null
+  } else {
+    let data = JSON.stringify({
+      email: formValues.email,
+      password: formValues.password,
+    })
+    await apis.post('/login', data, {
+      headers: {
+      'Content-Type': 'application/json',
+      }
+    })
+  
+    .then(response => { 
+      const key = response.data
+      validate = key;    
+    })
+    .catch(error => {
+      validate = error.response.data
+    });
+  }
   if(typeof validate === "string" && validate.length >= 149) history.push('/');
 
   dispatch({type: 'AKUN_LOGIN', payload: validate })
 } 
 
 export const akunGet = key => async dispatch => {
-  const response = await apis.get('/akuns/me',{
-    headers: {
-      'Content-Type': 'application/json',
-      'x-auth-token': key
-    }
-  });
+  let response;
+  if(key === null) {
+    response = null
+  }else {
+    response = await apis.get('/akuns/me',{
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': key
+      }
+    });
+  }
 
   dispatch({type: 'AKUN_GET', payload: response })
 }

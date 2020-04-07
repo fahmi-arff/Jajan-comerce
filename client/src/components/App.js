@@ -7,6 +7,7 @@ import Header from './Header';
 import CreateProfile from './profileOnlen/CreateProfile';
 import LoginProfile from './profileOnlen/LoginProfile';
 import ShowProfile from './profileOnlen/ShowProfile';
+import EditProfile from './profileOnlen/EditProfile';
 import history from '../history';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/profile/create" exact component={CreateProfile} />
             <Route path="/profile/login" exact component={LoginProfile} />
             <Route path="/profile/me" exact component={ShowProfile} />
+            <Route path="/profile/edit" exact component={EditProfile} />
           </Switch>
         </div>
       </Router>

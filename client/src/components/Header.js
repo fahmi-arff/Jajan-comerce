@@ -33,7 +33,6 @@ class Header extends React.Component {
     }
   }
   render(){
-    console.log(this.props)
     return (
       <div className="ui secondary pointing menu">
         <Link to="/" className="item">Jajan Onlen</Link>
@@ -47,7 +46,6 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('===',state)
   return { userLogin : state.currentUser}
 }
 

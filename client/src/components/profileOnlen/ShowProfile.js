@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class ShowProfile extends React.Component {
   renderDetail(){
@@ -16,7 +17,14 @@ class ShowProfile extends React.Component {
           Username : {myAkun.data.username}
           <br />
           Email : {myAkun.data.email}
+          <br />
+          Alamat : {myAkun.data.alamat || ''}
+          <br />
+          No. Telepon : {myAkun.data.phone || ''}
         </p>
+        <Link to={`/profile/edit`} className="ui button primary">
+          Edit Profil
+        </Link>
       </div>
     )
   }

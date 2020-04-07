@@ -40,7 +40,6 @@ class JList extends React.Component {
   }
 
   render(){
-    console.log(this.props.keyId)
     return (
       <div className="ui container grid">
         <div className="ui row">

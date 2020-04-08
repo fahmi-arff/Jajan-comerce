@@ -59,7 +59,10 @@ function validateAkun(akun) {
     nama: Joi.string().min(5).max(50).required(),
     username: Joi.string().alphanum().min(3).max(30).required(),
     password: Joi.string().min(5).max(255).required(),
-    email: Joi.string().min(5).max(255).required().email()
+    email: Joi.string().min(5).max(255).required().email(),
+    phone: Joi.string().min(10).max(15),
+    alamat: Joi.string().min(10).max(150),
+    pesanan: Joi.objectId()
   });
 
   return schema.validate(akun);

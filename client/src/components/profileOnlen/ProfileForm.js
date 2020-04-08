@@ -29,7 +29,6 @@ class ProfileForm extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     if(!this.props.keyId){
       return ( 
         <form
@@ -97,9 +96,9 @@ const validate = formValues => {
 }
 const mapStateToProps = state => {
   return {
-    errorPost : state.daftarPost,
-    errorEdit : state.editUser,
-    keyId : state.daftarLogin
+    errorPost : state.register,
+    errorEdit : state.editCurrentUser,
+    keyId : state.loggingIn
   }
 }
 

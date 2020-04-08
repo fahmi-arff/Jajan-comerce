@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import history from '../history';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { loginPost } from '../actions';
+import { postLoginProfile } from '../actions';
 import { Link } from 'react-router-dom';
 
 class Modal extends React.Component {
@@ -29,7 +29,7 @@ class Modal extends React.Component {
   }
 
   onSubmit = (formValues) => {
-    this.props.loginPost(formValues)
+    this.props.postLoginProfile(formValues)
   }
 
   render(){
@@ -91,4 +91,4 @@ const formWrapped = reduxForm ({
   validate
 })(Modal); 
 
-export default connect(mapStateToProps, { loginPost })(formWrapped)
+export default connect(mapStateToProps, { postLoginProfile })(formWrapped)

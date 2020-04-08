@@ -1,17 +1,15 @@
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import { editProfile } from '../../actions';
+import { patchEditProfile } from '../../actions';
 import ProfileForm from './ProfileForm';
 
 class EditProfile extends React.Component {
   onSubmit = formValues => {
-    console.log(formValues)
-    this.props.editProfile(this.props.keyId, formValues)
+    this.props.patchEditProfile(this.props.keyId, formValues)
   }
   render(){
-    console.log(this.props.akun)
-    if(!this.props.akun) {
+    if(!this.props.currentUser) {
       return <div>Loading...</div>;
     }
     
@@ -19,7 +17,7 @@ class EditProfile extends React.Component {
       <div>
         <h3>Edit Profile</h3>
         <ProfileForm 
-          initialValues={_.pick(this.props.akun, 'nama', 'username', 'alamat', 'phone')}
+          initialValues={_.pick(this.props.currentUser, 'nama', 'username', 'alamat', 'phone')}
           onSubmit={this.onSubmit}
         />
       </div>
@@ -29,11 +27,11 @@ class EditProfile extends React.Component {
 
 const mapStateToProps = state =>{
   return {
-    akun : state.currentUser,
-    keyId: state.daftarLogin
+    currentUser : state.currentUser,
+    keyId: state.loggingIn
   }
 }
 
 export default connect(mapStateToProps, {
-  editProfile
+  patchEditProfile
 })(EditProfile); 

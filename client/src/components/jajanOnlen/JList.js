@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link} from 'react-router-dom';
-import { getAllBarang, getBarangId, loginPost, akunGet } from '../../actions';
+import { getAllBarang, getBarangId } from '../../actions';
 
 class JList extends React.Component {
   componentDidMount(){
@@ -9,10 +9,10 @@ class JList extends React.Component {
   }
   
   renderBarang(){
-    if (this.props.barang.length === 0){
+    if (this.props.allBarang.length === 0){
       return <div>No Data</div>
     }
-    return this.props.barang.data.map(brg => {
+    return this.props.allBarang.data.map(brg => {
       return (
         <div className="item" key={brg._id}>
           <div className="right floated content">
@@ -50,12 +50,12 @@ class JList extends React.Component {
 
 const mapStateToProps = state => {
   return { 
-    barang: state.allBarang,
-    keyId: state.daftarLogin
+    allBarang: state.allBarang,
+    keyId: state.loggingIn
    };
 }
 
 export default connect(
   mapStateToProps, 
-  { getAllBarang, getBarangId, loginPost, akunGet }
+  { getAllBarang, getBarangId }
 )(JList)

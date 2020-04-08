@@ -5,7 +5,6 @@ const LoginProfile = () => {
   return (
     <div>
       <Modal />
-      LoginProfile
     </div>
   )
 }

@@ -11,21 +11,20 @@ class JDetail extends React.Component {
       <div>
         <h3>Detail barang: </h3>
         <p>
-          Jenis Barang: {barang.data.kategori.name}
+          Jenis Barang: {barang.kategori.name}
           <br />
-          Nama Barang: {barang.data.nama}
+          Nama Barang: {barang.nama}
           <br />
-          Harga : {barang.data.harga}
+          Harga : {barang.harga}
           <br />
-          Stok  : {barang.data.stok}
+          Stok  : {barang.stok}
           <br />
-          Asal Kota : {barang.data.pengiriman.kota}
+          Asal Kota : {barang.pengiriman.kota}
         </p>
       </div>
     )
   }
   render(){
-    console.log(this.props)
     return (
       <div className="ui container grid">
         <div className="ui row">

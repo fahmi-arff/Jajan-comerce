@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { akunGet, loginPost } from '../actions';
+import { getMyProfile, postLoginProfile } from '../actions';
 
 class Header extends React.Component {
   renderbutton(){
@@ -23,8 +23,8 @@ class Header extends React.Component {
             Profile
           </Link>
           <Link to={`/`} onClick={() => {
-            this.props.akunGet(null)
-            this.props.loginPost(null)
+            this.props.getMyProfile(null)
+            this.props.postLoginProfile(null)
           }} className="ui red button">
             Logout
           </Link>
@@ -49,4 +49,4 @@ const mapStateToProps = state => {
   return { userLogin : state.currentUser}
 }
 
-export default connect(mapStateToProps, { akunGet, loginPost })(Header)
+export default connect(mapStateToProps, { getMyProfile, postLoginProfile })(Header)

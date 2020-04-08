@@ -1,29 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { akunGet } from '../../actions';
+import { getMyProfile } from '../../actions';
 
 class ShowProfile extends React.Component {
   renderDetail(){
-    const {myAkun} = this.props
-    if(!myAkun){
+    const {currentUser} = this.props
+    if(!currentUser){
       return <div>No Profile</div>
     }
     return (
       <div>
-        <h3>Detail myAkun: </h3>
+        <h3>Detail currentUser: </h3>
         <p>
-          Nama : {myAkun.nama}
+          Nama : {currentUser.nama}
           <br />
-          Username : {myAkun.username}
+          Username : {currentUser.username}
           <br />
-          Email : {myAkun.email}
+          Email : {currentUser.email}
           <br />
-          Alamat : {myAkun.alamat || ''}
+          Alamat : {currentUser.alamat || ''}
           <br />
-          No. Telepon : {myAkun.phone || ''}
+          No. Telepon : {currentUser.phone || ''}
         </p>
-        <Link to={`/profile/edit/${myAkun._id}`} className="ui button primary">
+        <Link to={`/profile/edit/${currentUser._id}`} className="ui button primary">
           Edit Profil
         </Link>
       </div>
@@ -44,10 +44,10 @@ class ShowProfile extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    myAkun : state.currentUser,
-    keyId : state.daftarLogin,
-    updated: state.editUser
+    currentUser : state.currentUser,
+    keyId : state.loggingIn,
+    updated: state.editCurrentUser
   }
 }
 
-export default connect(mapStateToProps, { akunGet })(ShowProfile);
+export default connect(mapStateToProps, { getMyProfile })(ShowProfile);

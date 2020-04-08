@@ -18,32 +18,32 @@ const getBarangIdReducer = (state=null, action) => {
   return state
 }
 
-const daftarPostReducer = (state=null, action) => {
-  if (action.type === 'AKUN_POST'){
+const postCreateProfileReducer = (state=null, action) => {
+  if (action.type === 'POST_CREATE_PROFILE'){
     return  action.payload;
   }
 
   return state
 }
 
-const daftarLoginReducer = (state=null, action) => {
-  if (action.type === 'AKUN_LOGIN'){
+const postLoginProfileReducer = (state=null, action) => {
+  if (action.type === 'POST_LOGIN_PROFILE'){
     return  action.payload;
   }
 
   return state
 }
 
-const currentUserReducer = (state=null, action) => {
-  if (action.type === 'AKUN_GET'){
+const getMyProfileReducer = (state=null, action) => {
+  if (action.type === 'GET_MY_PROFILE'){
     return  action.payload;
   }
 
   return state
 }
 
-const editUserReducer = (state=null, action) => {
-  if (action.type === 'AKUN_EDIT'){
+const patchEditProfileReducer = (state=null, action) => {
+  if (action.type === 'PATCH_EDIT_PROFILE'){
     return  action.payload;
   }
 
@@ -53,9 +53,9 @@ const editUserReducer = (state=null, action) => {
 export default combineReducers({
   allBarang: getAllBarangReducer,
   barangId : getBarangIdReducer,
-  daftarPost : daftarPostReducer,
-  daftarLogin : daftarLoginReducer,
-  currentUser : currentUserReducer,
-  editUser : editUserReducer,
+  register : postCreateProfileReducer,
+  loggingIn : postLoginProfileReducer,
+  currentUser : getMyProfileReducer,
+  editCurrentUser : patchEditProfileReducer,
   form: reducer
 });

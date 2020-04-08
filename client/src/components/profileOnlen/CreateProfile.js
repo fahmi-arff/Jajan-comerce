@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { daftarPost } from '../../actions';
+import { postCreateProfile } from '../../actions';
 import ProfileForm   from './ProfileForm';
 
 class CreateProfile extends React.Component {
   onSubmit = (formValues) => {
-    this.props.daftarPost(formValues)
+    this.props.postCreateProfile(formValues)
   }
 
   render() {
@@ -18,4 +18,4 @@ class CreateProfile extends React.Component {
   }
 }
 
-export default connect(null, { daftarPost })(CreateProfile)
+export default connect(null, { postCreateProfile })(CreateProfile)

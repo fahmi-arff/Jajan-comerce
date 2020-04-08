@@ -42,20 +42,20 @@ export const getAllBarang = () => async dispatch => {
 export const getBarangId = id => async dispatch => {
   const response = await apis.get(`/barangs/${id}`);
 
-  dispatch({type: 'GET_BARANG_ID', payload: response })
+  dispatch({type: 'GET_BARANG_ID', payload: response.data })
 }
 
-export const daftarPost = formValues => async dispatch => {
+export const postCreateProfile = formValues => async dispatch => {
   let data = JSON.stringify(formValues);
 
   let fetch = await exec('post', '/akuns', data, false, '');
 
   if(typeof fetch.response !== "string") history.push('/');
 
-  dispatch({type: 'AKUN_POST', payload: fetch.response })
+  dispatch({type: 'POST_CREATE_PROFILE', payload: fetch.response })
 } 
 
-export const loginPost = formValues => async dispatch => {
+export const postLoginProfile = formValues => async dispatch => {
   let response, fetch, status;
 
   if(formValues === null){
@@ -68,13 +68,13 @@ export const loginPost = formValues => async dispatch => {
   }
 
   if(status === 200) {
-    await dispatch(akunGet(response))
+    await dispatch(getMyProfile(response))
     history.push('/')
   }
-  dispatch({type: 'AKUN_LOGIN', payload: response })
+  dispatch({type: 'POST_LOGIN_PROFILE', payload: response })
 } 
 
-export const akunGet = key => async dispatch => {
+export const getMyProfile = key => async dispatch => {
   let response, fetch;
 
   if(key === null) {
@@ -84,18 +84,18 @@ export const akunGet = key => async dispatch => {
     response = fetch.response
 
   }
-  dispatch({type: 'AKUN_GET', payload: response })
+  dispatch({type: 'GET_MY_PROFILE', payload: response })
 }
 
-export const editProfile = (key, formValues) => async dispatch => {
+export const patchEditProfile = (key, formValues) => async dispatch => {
   let data = JSON.stringify(formValues)
 
   let fetch = await exec('patch', '/akuns/me', data, false, key)
   
   if(fetch.status === 200) {
     history.push('/profile/me');
-    await dispatch(akunGet(key))
+    await dispatch(getMyProfile(key))
   };
 
-  dispatch({type: 'AKUN_EDIT', payload: fetch.response })
+  dispatch({type: 'PATCH_EDIT_PROFILE', payload: fetch.response })
 }

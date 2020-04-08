@@ -60,6 +60,15 @@ function validateAkun(akun) {
     username: Joi.string().alphanum().min(3).max(30).required(),
     password: Joi.string().min(5).max(255).required(),
     email: Joi.string().min(5).max(255).required().email(),
+  });
+
+  return schema.validate(akun);
+}
+
+function validatePatchAkun(akun) {
+  const schema = Joi.object({ 
+    nama: Joi.string().min(5).max(50).required(),
+    username: Joi.string().alphanum().min(3).max(30).required(),
     phone: Joi.string().min(10).max(15),
     alamat: Joi.string().min(10).max(150),
     pesanan: Joi.objectId()
@@ -70,3 +79,4 @@ function validateAkun(akun) {
 
 exports.Akun = Akun; 
 exports.validate = validateAkun;
+exports.validatePatch = validatePatchAkun;

@@ -38,8 +38,7 @@ class JDetail extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps)
+const mapStateToProps = state => {
   return {barang : state.barangId}
 }
 

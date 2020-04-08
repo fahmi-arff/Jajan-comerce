@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { daftarPost } from '../../actions';
 import ProfileForm   from './ProfileForm';
 
-
 class CreateProfile extends React.Component {
   onSubmit = (formValues) => {
     this.props.daftarPost(formValues)

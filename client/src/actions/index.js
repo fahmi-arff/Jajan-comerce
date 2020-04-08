@@ -1,114 +1,101 @@
 import apis from '../api';
 import history from '../history';
 
-export const barangGet = () => async dispatch => {
-  const response = await apis.get('/barangs');
-
-  dispatch({type: 'BARANG_GET', payload: response })
+function contentType(id, route, data, key){
+  if(id === 'post'){
+    return apis.post(route, data, {
+      headers: { 'Content-Type': 'application/json' }
+    })
+  } else if(id === 'get'){
+    return apis.get(route,{
+      headers: { 'Content-Type': 'application/json', 'x-auth-token': key }
+    })
+  } else if(id === 'patch'){
+    return apis.patch(route, data, {
+      headers: { 'Content-Type': 'application/json', 'x-auth-token': key }
+    })
+  }
 }
 
-export const barangId = id => async dispatch => {
+async function exec(type, route, data, resp, key){
+  let result = {}
+
+  await contentType(type, route, data, key)
+    .then(response => { 
+      (resp) ? result.response = response.data : result.response = null 
+      result.status = response.status  
+    })
+    .catch(error => {
+      result.response = error.response.data
+      result.status = error.response.status 
+    });
+
+  return result
+}
+
+export const getAllBarang = () => async dispatch => {
+  const response = await apis.get('/barangs');
+
+  dispatch({type: 'GET_ALL_BARANG', payload: response })
+}
+
+export const getBarangId = id => async dispatch => {
   const response = await apis.get(`/barangs/${id}`);
 
-  dispatch({type: 'BARANG_ID', payload: response })
+  dispatch({type: 'GET_BARANG_ID', payload: response })
 }
 
 export const daftarPost = formValues => async dispatch => {
-  let data = JSON.stringify({
-    nama: formValues.nama,
-    username: formValues.username,
-    password: formValues.password,
-    email: formValues.email,
-  })
-  let validate;
-  await apis.post('/akuns', data, {
-    headers: {
-    'Content-Type': 'application/json',
-    }
-  })
+  let data = JSON.stringify(formValues);
 
-  .then(response => { 
-    validate = null;    
-  })
-  .catch(error => {
-    validate = error.response.data
-  });
-  if(typeof validate !== "string") history.push('/');
+  let fetch = await exec('post', '/akuns', data, false, '');
 
-  dispatch({type: 'AKUN_POST', payload: validate })
+  if(typeof fetch.response !== "string") history.push('/');
+
+  dispatch({type: 'AKUN_POST', payload: fetch.response })
 } 
 
 export const loginPost = formValues => async dispatch => {
-  let validate;
-  if(formValues === null){
-    validate = null
-  } else {
-    let data = JSON.stringify({
-      email: formValues.email,
-      password: formValues.password,
-    })
-    await apis.post('/login', data, {
-      headers: {
-      'Content-Type': 'application/json',
-      }
-    })
-  
-    .then(response => { 
-      const key = response.data
-      validate = key;    
-    })
-    .catch(error => {
-      validate = error.response.data
-    });
-  }
-  if(typeof validate === "string" && validate.length >= 149) history.push('/');
+  let response, fetch, status;
 
-  dispatch({type: 'AKUN_LOGIN', payload: validate })
+  if(formValues === null){
+    response = null
+  } else {
+    let data = JSON.stringify(formValues)
+    fetch = await exec('post', '/login', data, true, '');
+    response = fetch.response
+    status = fetch.status
+  }
+
+  if(status === 200) {
+    await dispatch(akunGet(response))
+    history.push('/')
+  }
+  dispatch({type: 'AKUN_LOGIN', payload: response })
 } 
 
 export const akunGet = key => async dispatch => {
-  let response
+  let response, fetch;
+
   if(key === null) {
     response = null
   }else {
-    response = await apis.get('/akuns/me',{
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': key
-      }
-    });
-  }
+    fetch = await exec('get', '/akuns/me', '', true, key);
+    response = fetch.response
 
+  }
   dispatch({type: 'AKUN_GET', payload: response })
 }
 
 export const editProfile = (key, formValues) => async dispatch => {
-  let data = JSON.stringify({
-    nama: formValues.nama,
-    username: formValues.username,
-    alamat: formValues.alamat,
-    phone: formValues.phone,
-  })
-  let validate, status;
-  await apis.patch('/akuns/me',data, {
-    headers: {
-      'Content-Type': 'application/json',
-      'x-auth-token': key
-    }
-  })
-  .then(response => { 
-    status = response.status;
-    validate = null;    
-    
-  })
-  .catch(error => {
-    status = error.response.status;
-    validate = error.response.data
-  });
-  if(status === 200) {
+  let data = JSON.stringify(formValues)
+
+  let fetch = await exec('patch', '/akuns/me', data, false, key)
+  
+  if(fetch.status === 200) {
     history.push('/profile/me');
     await dispatch(akunGet(key))
   };
 
-  dispatch({type: 'AKUN_EDIT', payload: validate })
+  dispatch({type: 'AKUN_EDIT', payload: fetch.response })
 }

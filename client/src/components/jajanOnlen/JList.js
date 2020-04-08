@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link} from 'react-router-dom';
-import { barangGet, barangId, loginPost, akunGet } from '../../actions';
+import { getAllBarang, getBarangId, loginPost, akunGet } from '../../actions';
 
 class JList extends React.Component {
   componentDidMount(){
-    this.props.barangGet();
-  }
-
-  componentDidUpdate(){
-    if(this.props.keyId) this.props.akunGet(this.props.keyId)
+    this.props.getAllBarang();
   }
   
   renderBarang(){
@@ -23,7 +19,7 @@ class JList extends React.Component {
             <Link to= {`/jajan/Detail/${brg._id}`} >
               <button 
                 className="ui button primary"
-                onClick={() => this.props.barangId(brg._id)}
+                onClick={() => this.props.getBarangId(brg._id)}
               >
                 Pilih
               </button>
@@ -54,12 +50,12 @@ class JList extends React.Component {
 
 const mapStateToProps = state => {
   return { 
-    barang: state.barangGet,
+    barang: state.allBarang,
     keyId: state.daftarLogin
    };
 }
 
 export default connect(
   mapStateToProps, 
-  { barangGet, barangId, loginPost, akunGet }
+  { getAllBarang, getBarangId, loginPost, akunGet }
 )(JList)

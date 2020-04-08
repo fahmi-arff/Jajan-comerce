@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
 import { reducer } from 'redux-form';
 
-const barangGetReducer = (state= [], action) => {
+const getAllBarangReducer = (state= [], action) => {
   switch (action.type) {
-    case 'BARANG_GET':
+    case 'GET_ALL_BARANG':
       return  action.payload;
     default:
       return state
     }
   }
 
-const barangIdReducer = (state=null, action) => {
-  if (action.type === 'BARANG_ID'){
+const getBarangIdReducer = (state=null, action) => {
+  if (action.type === 'GET_BARANG_ID'){
     return  action.payload;
   }
 
@@ -51,8 +51,8 @@ const editUserReducer = (state=null, action) => {
 }
 
 export default combineReducers({
-  barangGet: barangGetReducer,
-  barangId : barangIdReducer,
+  allBarang: getAllBarangReducer,
+  barangId : getBarangIdReducer,
   daftarPost : daftarPostReducer,
   daftarLogin : daftarLoginReducer,
   currentUser : currentUserReducer,

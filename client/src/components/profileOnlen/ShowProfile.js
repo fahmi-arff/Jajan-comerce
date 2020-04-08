@@ -13,17 +13,17 @@ class ShowProfile extends React.Component {
       <div>
         <h3>Detail myAkun: </h3>
         <p>
-          Nama : {myAkun.data.nama}
+          Nama : {myAkun.nama}
           <br />
-          Username : {myAkun.data.username}
+          Username : {myAkun.username}
           <br />
-          Email : {myAkun.data.email}
+          Email : {myAkun.email}
           <br />
-          Alamat : {myAkun.data.alamat || ''}
+          Alamat : {myAkun.alamat || ''}
           <br />
-          No. Telepon : {myAkun.data.phone || ''}
+          No. Telepon : {myAkun.phone || ''}
         </p>
-        <Link to={`/profile/edit/${myAkun.data._id}`} className="ui button primary">
+        <Link to={`/profile/edit/${myAkun._id}`} className="ui button primary">
           Edit Profil
         </Link>
       </div>

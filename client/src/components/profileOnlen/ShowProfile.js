@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { akunGet } from '../../actions';
 
 class ShowProfile extends React.Component {
   renderDetail(){
@@ -42,7 +43,11 @@ class ShowProfile extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {myAkun : state.currentUser}
+  return {
+    myAkun : state.currentUser,
+    keyId : state.daftarLogin,
+    updated: state.editUser
+  }
 }
 
-export default connect(mapStateToProps)(ShowProfile);
+export default connect(mapStateToProps, { akunGet })(ShowProfile);

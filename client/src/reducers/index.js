@@ -42,11 +42,20 @@ const currentUserReducer = (state=null, action) => {
   return state
 }
 
+const editUserReducer = (state=null, action) => {
+  if (action.type === 'AKUN_EDIT'){
+    return  action.payload;
+  }
+
+  return state
+}
+
 export default combineReducers({
   barangGet: barangGetReducer,
   barangId : barangIdReducer,
   daftarPost : daftarPostReducer,
   daftarLogin : daftarLoginReducer,
   currentUser : currentUserReducer,
+  editUser : editUserReducer,
   form: reducer
 });

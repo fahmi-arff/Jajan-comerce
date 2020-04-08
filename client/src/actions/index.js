@@ -67,7 +67,7 @@ export const loginPost = formValues => async dispatch => {
 } 
 
 export const akunGet = key => async dispatch => {
-  let response;
+  let response
   if(key === null) {
     response = null
   }else {
@@ -80,4 +80,35 @@ export const akunGet = key => async dispatch => {
   }
 
   dispatch({type: 'AKUN_GET', payload: response })
+}
+
+export const editProfile = (key, formValues) => async dispatch => {
+  let data = JSON.stringify({
+    nama: formValues.nama,
+    username: formValues.username,
+    alamat: formValues.alamat,
+    phone: formValues.phone,
+  })
+  let validate, status;
+  await apis.patch('/akuns/me',data, {
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-token': key
+    }
+  })
+  .then(response => { 
+    status = response.status;
+    validate = null;    
+    
+  })
+  .catch(error => {
+    status = error.response.status;
+    validate = error.response.data
+  });
+  if(status === 200) {
+    history.push('/profile/me');
+    await dispatch(akunGet(key))
+  };
+
+  dispatch({type: 'AKUN_EDIT', payload: validate })
 }

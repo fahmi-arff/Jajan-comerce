@@ -53,7 +53,6 @@ class JList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state=>', state)
   return { 
     barang: state.barangGet,
     keyId: state.daftarLogin

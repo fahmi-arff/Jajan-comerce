@@ -25,6 +25,7 @@ class JDetail extends React.Component {
     )
   }
   render(){
+    console.log(this.props)
     return (
       <div className="ui container grid">
         <div className="ui row">
@@ -37,7 +38,8 @@ class JDetail extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps)
   return {barang : state.barangId}
 }
 

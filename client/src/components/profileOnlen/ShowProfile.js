@@ -22,7 +22,7 @@ class ShowProfile extends React.Component {
           <br />
           No. Telepon : {myAkun.data.phone || ''}
         </p>
-        <Link to={`/profile/edit`} className="ui button primary">
+        <Link to={`/profile/edit/${myAkun.data._id}`} className="ui button primary">
           Edit Profil
         </Link>
       </div>

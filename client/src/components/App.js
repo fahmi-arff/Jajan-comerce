@@ -23,7 +23,7 @@ const App = () => {
             <Route path="/profile/create" exact component={CreateProfile} />
             <Route path="/profile/login" exact component={LoginProfile} />
             <Route path="/profile/me" exact component={ShowProfile} />
-            <Route path="/profile/edit" exact component={EditProfile} />
+            <Route path="/profile/edit/:id" exact component={EditProfile} />
           </Switch>
         </div>
       </Router>

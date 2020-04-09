@@ -28,39 +28,35 @@ class ProfileForm extends React.Component {
     this.props.onSubmit(formValues)
   }
 
+  renderField(data){
+    return data.map(a => {
+      return (
+        <Field name= {a} component={this.renderInput} label={a.slice(0,1).toUpperCase() + a.slice(1)} />
+      )
+    })
+  }
+
+  renderForm(data, error){
+    return ( 
+      <form
+        onSubmit={this.props.handleSubmit(this.onSubmit)} 
+        className="ui form error"
+      >
+        {this.renderField(data)}
+        <div className="ui error message">
+          {error}
+        </div>
+        <button className="ui button primary">Submit</button>
+      </form>
+    )
+  }
+  
+
   render() {
     if(!this.props.keyId){
-      return ( 
-        <form
-          onSubmit={this.props.handleSubmit(this.onSubmit)} 
-          className="ui form error"
-        >
-          <Field name="nama" component={this.renderInput} label="Nama" />
-          <Field name="username" component={this.renderInput} label="Usename" />
-          <Field name="password" component={this.renderInput} label="Password" />
-          <Field name="email" component={this.renderInput} label="Email" />
-          <div className="ui error message">
-            {this.props.errorPost}
-          </div>
-          <button className="ui button primary">Submit</button>
-        </form>
-      )
+      return this.renderForm(['nama', 'username','password', 'email'], this.props.errorPost)
     } else {
-      return ( 
-        <form
-          onSubmit={this.props.handleSubmit(this.onSubmit)} 
-          className="ui form error"
-        >
-          <Field name="nama" component={this.renderInput} label="Nama" />
-          <Field name="username" component={this.renderInput} label="Usename" />
-          <Field name="alamat" component={this.renderInput} label="alamat" />
-          <Field name="phone" component={this.renderInput} label="phone" />
-          <div className="ui error message">
-            {this.props.errorEdit}
-          </div>
-          <button className="ui button primary">Submit</button>
-        </form>
-      )
+      return this.renderForm(['nama', 'username','alamat', 'phone'], this.props.errorEdit)
     }
   }
 }
@@ -68,32 +64,21 @@ class ProfileForm extends React.Component {
 const validate = formValues => {
   const errors = {};
 
-  if (!formValues.nama) {
-    errors.nama = 'Nama dibutuhkan';
-  }
+  if (!formValues.nama) errors.nama = 'Nama dibutuhkan';
   
-  if (!formValues.username) {
-    errors.username = 'Usename dibutuhkan';
-  }
-
-  if (!formValues.password) {
-    errors.password = 'Password dibutuhkan';
-  }
-
-  if (!formValues.email) {
-    errors.email = 'Email dibutuhkan';
-  }
+  if (!formValues.username) errors.username = 'Usename dibutuhkan';
   
-  if (!formValues.alamat) {
-    errors.alamat = 'Alamat dibutuhkan';
-  }
+  if (!formValues.password) errors.password = 'Password dibutuhkan';
 
-  if (!formValues.phone) {
-    errors.phone = 'Phone dibutuhkan';
-  }
+  if (!formValues.email) errors.email = 'Email dibutuhkan';
+  
+  if (!formValues.alamat) errors.alamat = 'Alamat dibutuhkan';
+
+  if (!formValues.phone) errors.phone = 'Phone dibutuhkan';
   
   return errors;
 }
+
 const mapStateToProps = state => {
   return {
     errorPost : state.register,

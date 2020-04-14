@@ -13,7 +13,7 @@ class Header extends React.Component {
           </Link>
           <Link to={`/profile/login`} className="ui button primary">
             Login
-          </Link>
+          </Link>          
         </div>
       )
     } else {
@@ -34,12 +34,17 @@ class Header extends React.Component {
   }
   render(){
     return (
-      <div className="ui secondary pointing menu">
+      <div className="ui menu" style = {{marginTop: "10px"}} >
         <Link to="/" className="item">Jajan Onlen</Link>
         <div className="right menu">
-          <Link to="/" className="item">Branda</Link>
-        </div >
+          <Link to={`/`} style={{marginTop : "auto", marginBottom: "auto", paddingRight: "auto"}}>
+            <label className="ui basic right pointing blue label">
+              1,048
+            </label>
+            <i className="large cart arrow down icon"></i> 
+          </Link>
           {this.renderbutton()}
+        </div>
       </div>
     )
   }

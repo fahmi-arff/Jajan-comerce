@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link} from 'react-router-dom';
 import { getAllBarang, getBarangId } from '../../actions';
+import image from '../../blank.png';
 
 class JList extends React.Component {
   componentDidMount(){
@@ -12,36 +13,39 @@ class JList extends React.Component {
     if (this.props.allBarang.length === 0){
       return <div>No Data</div>
     }
-    return this.props.allBarang.data.map(brg => {
+    return this.props.allBarang.map(brg => {
       return (
-        <div className="item" key={brg._id}>
-          <div className="right floated content">
-            <Link to= {`/jajan/Detail/${brg._id}`} >
-              <button 
-                className="ui button primary"
-                onClick={() => this.props.getBarangId(brg._id)}
-              >
-                Pilih
-              </button>
-            </Link>
+        <div className="card" key={brg._id}>
+          <div className="image">
+            <img src={image} alt={brg.nama}/>
           </div>
-          <div className="content">{brg.nama}</div>
+          <div className="ui red attached disable button" style={{cursor: "default"}}>
+              {`Rp ${brg.harga}`}
+          </div>
+          <Link to= {`/jajan/Detail/${brg._id}` } 
+            onClick={() => this.props.getBarangId(brg._id)}
+            className="content"
+          >
+            <p className="header">{brg.nama}</p> 
+          </Link>
+          <div className="extra content">
+            <i className="truck icon"></i>
+            {brg.pengiriman.kota}
+          </div>
         </div>
       )
     })
   }
 
-  renderList(){
-    return <div className="ui relaxed divided list">{this.renderBarang()}</div>
+  renderCard(){
+    return <div className="ui cards">{this.renderBarang()}</div>
   }
 
   render(){
     return (
       <div className="ui container grid">
         <div className="ui row">
-          <div className="column eight wide">
-            {this.renderList()}
-          </div>
+        {this.renderCard()}
         </div>
       </div>
     )

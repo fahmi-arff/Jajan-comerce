@@ -71,13 +71,9 @@ class Modal extends React.Component {
 const validate = formValues => {
   const errors = {};
 
-  if (!formValues.email) {
-    errors.email = 'Email dibutuhkan';
-  }
+  if (!formValues.email) errors.email = 'Email dibutuhkan';
 
-  if (!formValues.password) {
-    errors.password = 'Password dibutuhkan';
-  }
+  if (!formValues.password) errors.password = 'Password dibutuhkan';
   
   return errors;
 }

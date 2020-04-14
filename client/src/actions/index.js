@@ -36,7 +36,7 @@ async function exec(type, route, data, resp, key){
 export const getAllBarang = () => async dispatch => {
   const response = await apis.get('/barangs');
 
-  dispatch({type: 'GET_ALL_BARANG', payload: response })
+  dispatch({type: 'GET_ALL_BARANG', payload: response.data })
 }
 
 export const getBarangId = id => async dispatch => {

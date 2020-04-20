@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getMyProfile } from '../../actions';
+// import { getMyProfile } from '../../actions';
 
 class ShowProfile extends React.Component {
   renderDetail(){
@@ -50,4 +50,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getMyProfile })(ShowProfile);
+export default connect(mapStateToProps)(ShowProfile);

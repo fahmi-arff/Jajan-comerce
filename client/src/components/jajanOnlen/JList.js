@@ -26,7 +26,7 @@ class JList extends React.Component {
             onClick={() => this.props.getBarangId(brg._id)}
             className="content"
           >
-            <p className="header">{brg.nama}</p> 
+            <p className="header txt">{brg.nama}</p> 
           </Link>
           <div className="extra content">
             <i className="truck icon"></i>

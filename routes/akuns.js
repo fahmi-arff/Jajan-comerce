@@ -1,5 +1,6 @@
 const auth = require('../middleware/auth');
-const {Akun, validate, validatePatch} = require('../models/akun');
+const {Akun, validate, validatePatch, validatePesanan} = require('../models/akun');
+const {Barang} = require('../models/barang');
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
@@ -36,15 +37,64 @@ router.patch('/me', auth, async(req, res) => {
   let username = await Akun.findOne({ username: req.body.username});
   if (username) return res.status(400).send('Username telah digunakan, coba yang lain.');
 
-  const akun = await Akun.findByIdAndUpdate(req.user._id,
-    { 
+  const akun = await Akun.findByIdAndUpdate(req.user._id, { 
     nama: req.body.nama,
     username : req.body.username,
     alamat: req.body.alamat,
-    phone: req.body.phone,
-    }, { new: true }).select('-password');
+    phone: req.body.phone
+  }, { new: true }).select('-password');
 
   res.send(akun);
+});
+
+router.patch('/keranjang', auth, async(req, res) => {
+  let isSame = false;
+  let doubleId; 
+
+  const double = await Akun.findById(req.user._id);
+
+  for(let a of double.pesanan){
+    if(a.barangId._id.toString() === req.body.barangId) {
+      isSame = true; 
+      doubleId = a._id;
+      break;
+    }
+  }
+
+  if(isSame) {
+    let akun = await Akun.updateOne(
+      { "_id" : req.user._id, "pesanan._id": doubleId }, 
+      { "$inc": { "pesanan.$.jumlah": 1 } 
+    })
+    res.send(akun)
+
+  }else {
+    const { error } = validatePesanan(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const barang = await Barang.findById(req.body.barangId);
+    if (!barang) return res.status(400).send('Barang ID salah.');
+
+    const akun = await Akun.findByIdAndUpdate(req.user._id,{
+      $push: { pesanan: {
+        barangId : {
+          _id : barang._id,
+          nama : barang.nama,
+          stok : barang.stok,
+          harga : barang.harga,
+          terjual : barang.terjual,
+          pengiriman : {
+            kota : barang.pengiriman.kota,
+            tarif : barang.pengiriman.tarif
+          },
+        },
+        jumlah : req.body.jumlah
+      } }
+    }, { new: true }).select('pesanan');
+  
+    res.send(akun);
+  }
+  
 });
 
 module.exports = router;

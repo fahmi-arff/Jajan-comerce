@@ -32,16 +32,27 @@ class Header extends React.Component {
       )
     }
   }
+
+  renderShoppingCart(){
+    return (this.props.userLogin) ? this.props.userLogin.pesanan.length : 0;
+  }
+
+  renderIconCart(){
+    let {userLogin} = this.props
+    return (userLogin && userLogin.pesanan.length > 0) ? '' : 'disabled';
+  }
+
   render(){
+    let style = this.renderIconCart()
     return (
       <div className="ui menu" style = {{marginTop: "10px"}} >
         <Link to="/" className="item">Jajan Onlen</Link>
         <div className="right menu">
           <Link to={`/`} style={{marginTop : "auto", marginBottom: "auto", paddingRight: "auto"}}>
-            <label className="ui basic right pointing blue label">
-              1,048
+            <label className={`ui right pointing basic ${style} label`}>
+              {this.renderShoppingCart()}
             </label>
-            <i className="large cart arrow down icon"></i> 
+            <i className={`large cart arrow down ${style} icon`}></i> 
           </Link>
           {this.renderbutton()}
         </div>
@@ -51,7 +62,9 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { userLogin : state.currentUser}
+  return { 
+    userLogin : state.currentUser,
+  }
 }
 
 export default connect(mapStateToProps, { getMyProfile, postLoginProfile })(Header)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { addToCart } from '../../actions';
 
 class JDetail extends React.Component {
   renderButton(){
@@ -35,10 +35,14 @@ class JDetail extends React.Component {
           Stok  : {barang.stok} <br />
           Asal Kota : {barang.pengiriman.kota}
         </p>
-        <Link to={`/profile/`} className={`ui button ${config.style} `}>
+        <button 
+          className={`ui button ${config.style} `}
+          onClick={() => this.props.addToCart(this.props.barang._id, this.props.keyId)}
+        >
           <i className="shop icon"></i>
           {config.text}
-        </Link>
+        </button>
+        
       </div>
     )
   }
@@ -58,8 +62,9 @@ class JDetail extends React.Component {
 const mapStateToProps = state => {
   return {
     barang : state.barangId,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    keyId : state.loggingIn,
   }
 }
 
-export default connect(mapStateToProps)(JDetail);
+export default connect(mapStateToProps, {addToCart})(JDetail);

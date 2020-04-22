@@ -99,3 +99,24 @@ export const patchEditProfile = (key, formValues) => async dispatch => {
 
   dispatch({type: 'PATCH_EDIT_PROFILE', payload: fetch.response })
 }
+
+export const addToCart = (barang, key) => async dispatch => {
+  let result;
+  let raw = {
+    barangId : barang,
+    jumlah : 1
+  }
+  let data = JSON.stringify(raw)
+
+  await apis.patch('/akuns/keranjang', data, {
+    headers: { 'Content-Type': 'application/json' , 'x-auth-token': key }
+  })
+  .then(response => { 
+    result = response.status  
+  })
+  .catch(error => {
+    console.log(error)
+  });
+  
+  if(result === 200) await dispatch(getMyProfile(key));
+}

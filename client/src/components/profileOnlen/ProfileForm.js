@@ -31,7 +31,7 @@ class ProfileForm extends React.Component {
   renderField(data){
     return data.map(a => {
       return (
-        <Field name= {a} component={this.renderInput} label={a.slice(0,1).toUpperCase() + a.slice(1)} />
+        <Field key= {a} name= {a} component={this.renderInput} label={a.slice(0,1).toUpperCase() + a.slice(1)} />
       )
     })
   }
@@ -74,7 +74,7 @@ const validate = formValues => {
   
   if (!formValues.alamat) errors.alamat = 'Alamat dibutuhkan';
 
-  if (!formValues.phone) errors.phone = 'Phone dibutuhkan';
+  // if (!formValues.phone) errors.phone = 'Phone dibutuhkan';
   
   return errors;
 }

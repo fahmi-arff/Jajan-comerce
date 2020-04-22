@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtPrivateKey } = require('../config');
+const { barangSchema } = require('./barang');
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 
@@ -40,11 +41,7 @@ const akunSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 500
   },
-  pesanan: {
-    type: String,
-    minlength: 5,
-    maxlength: 50
-  }
+  pesanan: [{barangId : barangSchema, jumlah : { type: Number, min: 1 }}]
 })
 
 akunSchema.methods.generateAuthToken = function(){
@@ -69,14 +66,23 @@ function validatePatchAkun(akun) {
   const schema = Joi.object({ 
     nama: Joi.string().min(5).max(50).required(),
     username: Joi.string().alphanum().min(3).max(30).required(),
-    phone: Joi.string().min(10).max(15),
-    alamat: Joi.string().min(10).max(150),
-    pesanan: Joi.objectId()
+    phone: Joi.string().min(10).max(15).allow(null, ''),
+    alamat: Joi.string().min(10).max(150).allow(null, ''),    
   });
+  
+  return schema.validate(akun);
+}
 
+function validatePesanan(akun) {
+  const schema = Joi.object({
+    barangId : Joi.objectId(),
+    jumlah: Joi.number().min(1)
+  });
+  
   return schema.validate(akun);
 }
 
 exports.Akun = Akun; 
 exports.validate = validateAkun;
 exports.validatePatch = validatePatchAkun;
+exports.validatePesanan = validatePesanan;

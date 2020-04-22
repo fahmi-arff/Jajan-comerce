@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const {kategoriSchema} = require('./kategori');
 const {pengirimanSchema} = require('./pengiriman');
 
-const Barang = mongoose.model('barang', new mongoose.Schema({
+const barangSchema = new mongoose.Schema({
   nama: {
     type: String,
     required: true,
@@ -36,7 +36,9 @@ const Barang = mongoose.model('barang', new mongoose.Schema({
     type: pengirimanSchema,  
     required: true
   },
-}));
+})
+
+const Barang = mongoose.model('barang', barangSchema);
 
 function validateBarang(barang) {
   const schema = Joi.object({ 
@@ -51,5 +53,6 @@ function validateBarang(barang) {
   return schema.validate(barang);
 }
 
+exports.barangSchema = barangSchema;
 exports.Barang = Barang; 
 exports.validate = validateBarang;

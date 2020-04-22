@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { getMyProfile } from '../../actions';
 
 class ShowProfile extends React.Component {
   renderDetail(){

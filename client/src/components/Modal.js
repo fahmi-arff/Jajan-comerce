@@ -79,7 +79,7 @@ const validate = formValues => {
 }
 
 const mapStateToProps = state => {
-  return {errorLogin : state.daftarLogin}
+  return {errorLogin : state.loggingIn}
 }
 
 const formWrapped = reduxForm ({

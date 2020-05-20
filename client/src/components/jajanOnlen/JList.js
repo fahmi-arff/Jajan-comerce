@@ -24,7 +24,7 @@ class JList extends React.Component {
           </div>
           <Link to= {`/jajan/Detail/${brg._id}` } 
             onClick={() => this.props.getBarangId(brg._id)}
-            className="content"
+            className="content" 
           >
             <p className="header txt">{brg.nama}</p> 
           </Link>
@@ -38,7 +38,7 @@ class JList extends React.Component {
   }
 
   renderCard(){
-    return <div className="ui cards">{this.renderBarang()}</div>
+    return <div className="ui four cards">{this.renderBarang()}</div>
   }
 
   render(){

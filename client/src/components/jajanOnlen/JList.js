@@ -9,6 +9,20 @@ class JList extends React.Component {
     this.props.getAllBarang();
   }
   
+  renderNominal(nominal){
+    let d = nominal.toString()
+    let temp=0;
+    let price = ""
+  
+    for(let i=d.length-1; i>=0 ; i--){
+      price  = d[i] + price
+      console.log(d[i])
+      temp+=1
+      if(temp%3 === 0 && i !== 0) price  = "." + price
+    }
+    return price
+  }
+
   renderBarang(){
     if (this.props.allBarang.length === 0){
       return <div>No Data</div>
@@ -20,7 +34,7 @@ class JList extends React.Component {
             <img src={image} alt={brg.nama}/>
           </div>
           <div className="ui red attached disable button" style={{cursor: "default"}}>
-              {`Rp ${brg.harga}`}
+              {`Rp ${this.renderNominal(brg.harga)}`}
           </div>
           <Link to= {`/jajan/Detail/${brg._id}` } 
             onClick={() => this.props.getBarangId(brg._id)}

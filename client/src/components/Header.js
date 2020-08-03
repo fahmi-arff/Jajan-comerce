@@ -65,28 +65,28 @@ class Header extends React.Component {
     }else {
       return ( 
         <Dropdown.Item>
-          <div class="ui items">
-            <div class="ui bottom attached label"><h3>Keranjang Kosong</h3></div>
+          <div className="ui items">
+            <div className="ui bottom attached label"><h3>Keranjang Kosong</h3></div>
           </div>
         </Dropdown.Item>
       )
     } 
   }
 
-  renderBiaya(){
-    let biaya = 0;
+  renderShoppingCart(){
+    let total = {
+      harga: 0,
+      barang: 0
+    };
     if(this.props.userLogin) {
       for(let brg of this.props.userLogin.pesanan){
-        biaya += (brg.jumlah * brg.barangId.harga)
+        total.harga += (brg.jumlah * brg.barangId.harga)
+        total.barang += brg.jumlah
       }
-      return biaya;
+      return total;
     }else {
-      return 0;
+      return total;
     }
-  }
-
-  renderShoppingCart(){
-    return (this.props.userLogin) ? this.props.userLogin.pesanan.length : 0;
   }
 
   renderIconCart(){
@@ -105,7 +105,7 @@ class Header extends React.Component {
             <Menu>
               <div className="ui item">
                 <label className={`ui right pointing blue basic ${style} label`}>
-                  {this.renderShoppingCart()}
+                  {this.renderShoppingCart().barang}
                 </label>
               </div>
               <Dropdown item icon={`large cart arrow down primary ${style}`}>
@@ -113,8 +113,10 @@ class Header extends React.Component {
                   {this.renderDropdownCart()}
                   <Dropdown.Item style={{cursor: "default"}} >
                     <div className="ui items" style={{margin: "auto"}}>
-                      <button className="ui primary button">Checkout</button>
-                      <label className="ui tag label"><p className="ui label">Rp {this.renderBiaya()}</p></label>
+                      <Link to="/jajan/checkout" className="ui button primary">
+                        Checkout
+                      </Link>
+                      <label className="ui tag label"><p className="ui label">Rp {this.renderShoppingCart().harga}</p></label>
                     </div>
                   </Dropdown.Item>
                 </Dropdown.Menu>

@@ -16,7 +16,6 @@ class JList extends React.Component {
   
     for(let i=d.length-1; i>=0 ; i--){
       price  = d[i] + price
-      console.log(d[i])
       temp+=1
       if(temp%3 === 0 && i !== 0) price  = "." + price
     }
